@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { calculateMacros } from "../utils/calculateMacros";
-import ResultCard from "./Result";
 
-function InputForm() {
+function InputForm({ setMacroResults }) {
   // State to hold user inputs
   const [formData, setFormData] = useState({
     weight: "",
@@ -13,9 +12,6 @@ function InputForm() {
     activityLevel: "Sedentary",
     goal: "Maintain",
   });
-
-  // State to store calculated macros
-  const [macroResults, setMacroResults] = useState(null);
 
   // Handle form input changes
   const handleChange = (e) => {
@@ -71,7 +67,7 @@ function InputForm() {
         <h2 className="text-2xl font-bold mb-4">Enter Your Information</h2>
 
         {/* User Input Form */}
-        <form className="bg-gray-800 p-6  w-80" onSubmit={handleSubmit}>
+        <form className="bg-gray-800 p-6 w-80" onSubmit={handleSubmit}>
           <label className="block mb-2">Weight (lbs):</label>
           <input
             type="number"
@@ -153,9 +149,6 @@ function InputForm() {
             Calculate
           </button>
         </form>
-
-        {/* Display Results */}
-        {macroResults && <ResultCard results={macroResults} />}
       </div>
     </div>
   );

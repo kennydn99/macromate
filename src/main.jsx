@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import App from "./App.jsx";
-import InputForm from "./components/InputForm.jsx";
+import CalorieCalculator from "./components/CalorieCalculator.jsx";
 
 const router = createBrowserRouter([
   {
@@ -12,7 +12,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/cal-calc",
-    element: <InputForm />,
+    element: <CalorieCalculator />,
   },
 ]);
 
