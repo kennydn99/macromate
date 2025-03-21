@@ -63,8 +63,10 @@ function InputForm({ setMacroResults }) {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-{#242424} text-white">
-      <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-96">
-        <h2 className="text-2xl font-bold mb-4">Enter Your Information</h2>
+      <div className="bg-gray-800 p-8 rounded-lg shadow-lg ">
+        <h2 className="text-2xl font-bold mb-4 flex justify-center">
+          Enter Your Information
+        </h2>
 
         {/* User Input Form */}
         <form className="bg-gray-800 p-6 w-80" onSubmit={handleSubmit}>

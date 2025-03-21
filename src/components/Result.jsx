@@ -1,6 +1,8 @@
+import MacroChart from "./MacroChart";
+
 function ResultCard({ results, onRecalculate }) {
   return (
-    <div className="flex flex-col items-center bg-gray-800 p-6 rounded-lg shadow-lg w-80">
+    <div className="flex flex-col items-center bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-lg">
       <h2 className="text-2xl font-bold text-green-400 mb-4">
         Your Daily Macros
       </h2>
@@ -8,26 +10,20 @@ function ResultCard({ results, onRecalculate }) {
       <p>
         <strong>Calories:</strong> {results.tdee} kcal
       </p>
-      <p>
-        <strong>Protein:</strong> {results.protein}g
-      </p>
-      <p>
-        <strong>Fats:</strong> {results.fat}g
-      </p>
-      <p>
-        <strong>Carbs:</strong> {results.carbs}g
-      </p>
 
-      <button
-        onClick={onRecalculate}
-        className="w-full  bg-green-500 hover:bg-green-600 text-white p-2 rounded mt-4"
-      >
-        Recalculate
-      </button>
+      <MacroChart results={results}></MacroChart>
 
-      <button className="w-full bg-purple-500 hover:bg-purple-600 text-white p-2 rounded mt-2">
-        Create Meal Plan
-      </button>
+      <div className="flex gap-4 justify-center items-center w-full mt-4">
+        <button
+          onClick={onRecalculate}
+          className="flex-1 bg-green-500 hover:bg-green-600 text-white p-2 rounded"
+        >
+          Recalculate
+        </button>
+        <button className="flex-1 bg-purple-500 hover:bg-purple-600 text-white p-2 rounded">
+          Create Meal Plan
+        </button>
+      </div>
     </div>
   );
 }

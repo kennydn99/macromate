@@ -6,7 +6,7 @@ function CalorieCalculator() {
   const [macroResults, setMacroResults] = useState(null);
 
   return (
-    <div className="flex items-center justify-center min-h-screen text-white p-4">
+    <div className="flex items-center justify-center min-h-screen text-white p-4 w-full">
       {macroResults ? (
         <ResultCard
           results={macroResults}
