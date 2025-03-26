@@ -28,10 +28,10 @@ function ResultCard({ results, onRecalculate }) {
           onClick={() => setShowMealPlan(true)}
           className="flex-1 bg-purple-500 hover:bg-purple-600 text-white p-2 rounded"
         >
-          Create Meal Plan
+          Create Meal Plan!
         </button>
       </div>
-      {showMealPlan && <MealPlan tdee={results.tdee}></MealPlan>}
+      {showMealPlan && <MealPlan results={results}></MealPlan>}
     </div>
   );
 }
