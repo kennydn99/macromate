@@ -1,6 +1,10 @@
 import MacroChart from "./MacroChart";
+import { useState } from "react";
+import MealPlan from "./MealPlan";
 
 function ResultCard({ results, onRecalculate }) {
+  const [showMealPlan, setShowMealPlan] = useState(false);
+
   return (
     <div className="flex flex-col items-center bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-lg">
       <h2 className="text-2xl font-bold text-green-400 mb-4">
@@ -20,10 +24,14 @@ function ResultCard({ results, onRecalculate }) {
         >
           Recalculate
         </button>
-        <button className="flex-1 bg-purple-500 hover:bg-purple-600 text-white p-2 rounded">
+        <button
+          onClick={() => setShowMealPlan(true)}
+          className="flex-1 bg-purple-500 hover:bg-purple-600 text-white p-2 rounded"
+        >
           Create Meal Plan
         </button>
       </div>
+      {showMealPlan && <MealPlan tdee={results.tdee}></MealPlan>}
     </div>
   );
 }
