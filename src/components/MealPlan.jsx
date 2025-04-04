@@ -1,8 +1,8 @@
 import { fetchMealData, fetchMealDetails } from "../utils/api";
 import { useState, useEffect } from "react";
 
-const MealPlan = ({ results }) => {
-  const [mealData, setMealData] = useState({});
+const MealPlan = ({ results, numMeals = 3 }) => {
+  const [mealData, setMealData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [expandedMeals, setExpandedMeals] = useState({});
@@ -11,7 +11,7 @@ const MealPlan = ({ results }) => {
   useEffect(() => {
     const generateMealPlan = async () => {
       try {
-        const fetchedData = await fetchMealData(results.tdee);
+        const fetchedData = await fetchMealData(results, numMeals);
         setMealData(fetchedData);
       } catch (err) {
         setError("Failed to fetch meal plan. Please try again.");
@@ -21,7 +21,7 @@ const MealPlan = ({ results }) => {
     };
 
     generateMealPlan();
-  }, []);
+  }, [results, numMeals]);
 
   const handleMealClick = async (mealId) => {
     setExpandedMeals((prev) => ({
@@ -58,16 +58,6 @@ const MealPlan = ({ results }) => {
               onClick={() => handleMealClick(meal.id)}
             >
               <h3 className="text-green-400 font-bold">{meal.title}</h3>
-              <p>
-                <a
-                  href={meal.sourceUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-400 underline"
-                >
-                  View Recipe
-                </a>
-              </p>
 
               {/* Display nutrients if expanded */}
               {expandedMeals[meal.id] && mealNutrients[meal.id] && (
