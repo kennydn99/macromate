@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import App from "./App.jsx";
 import CalorieCalculator from "./components/CalorieCalculator.jsx";
+import ResultsPage from "./components/ResultsPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: "/cal-calc",
     element: <CalorieCalculator />,
+  },
+  {
+    path: "/results",
+    element: <ResultsPage></ResultsPage>,
   },
 ]);
 

@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { calculateMacros } from "../utils/calculateMacros";
+import { useNavigate } from "react-router-dom";
 
 function InputForm({ setMacroResults }) {
+  const navigate = useNavigate();
+  const [errors, setErrors] = useState({});
+
   // State to hold user inputs
   const [formData, setFormData] = useState({
     weight: "",
@@ -16,11 +20,43 @@ function InputForm({ setMacroResults }) {
   // Handle form input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    // Clear error for that field
+    if (errors[e.target.name]) {
+      setErrors({ ...errors, [e.target.name]: "" });
+    }
+  };
+
+  const validateInputs = () => {
+    const newErrors = {};
+    if (!formData.weight || formData.weight <= 0) {
+      newErrors.weight = "Weight must be a positive number.";
+    }
+    if (!formData.height_ft || formData.height_ft <= 0) {
+      newErrors.height_ft = "Feet must be a positive number.";
+    }
+    if (
+      formData.height_in === "" ||
+      formData.height_in < 0 ||
+      formData.height_in >= 12
+    ) {
+      newErrors.height_in = "Inches must be between 0 and 11.";
+    }
+    if (!formData.age || formData.age < 13 || formData.age > 100) {
+      newErrors.age = "Age must be between 13 and 100.";
+    }
+    return newErrors;
   };
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const validationErrors = validateInputs();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
     // Convert weight, height, and age to numbers
     const { weight, height_ft, height_in, age, gender, activityLevel, goal } =
@@ -59,6 +95,7 @@ function InputForm({ setMacroResults }) {
 
     // Store results in state
     setMacroResults(results);
+    navigate("/results", { state: { macroResults: results } });
   };
 
   return (
@@ -78,6 +115,9 @@ function InputForm({ setMacroResults }) {
             onChange={handleChange}
             className="w-full p-2 rounded bg-gray-700 text-white mb-4"
           />
+          {errors.weight && (
+            <p className="text-red-500 text-sm mb-2">{errors.weight}</p>
+          )}
 
           <label className="block mb-2">Height:</label>
           <div className="flex gap-2 mb-4">
@@ -98,6 +138,11 @@ function InputForm({ setMacroResults }) {
               className="w-1/2 p-2 rounded bg-gray-700 text-white"
             />
           </div>
+          {(errors.height_ft || errors.height_in) && (
+            <p className="text-red-500 text-sm mb-2">
+              {errors.height_ft || errors.height_in}
+            </p>
+          )}
 
           <label className="block mb-2">Age:</label>
           <input
@@ -107,6 +152,9 @@ function InputForm({ setMacroResults }) {
             onChange={handleChange}
             className="w-full p-2 rounded bg-gray-700 text-white mb-4"
           />
+          {errors.age && (
+            <p className="text-red-500 text-sm mb-2">{errors.age}</p>
+          )}
 
           <label className="block mb-2">Gender:</label>
           <select

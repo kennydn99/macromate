@@ -25,6 +25,7 @@ export const fetchMealData = async (results, numMeals) => {
           minFat: (results.fat / numMeals) * 0.8,
           maxFat: (results.fat / numMeals) * 1.2,
           number: 10, // Fetch multiple options per meal
+          random: true,
         },
       });
 
