@@ -1,5 +1,6 @@
 import { fetchMealData, fetchMealDetails } from "../utils/api";
 import { useState, useEffect } from "react";
+import MacroChart from "./MacroChart";
 
 const MealPlan = ({ results, numMeals = 3 }) => {
   const [mealData, setMealData] = useState([]);
@@ -41,6 +42,8 @@ const MealPlan = ({ results, numMeals = 3 }) => {
     }
   };
 
+  const parseGrams = (str) => Number(str.replace("g", "").trim());
+
   return (
     <div className="bg-gray-800 p-6 rounded-lg shadow-lg text-white w-full max-w-lg">
       <h2 className="text-2xl font-bold text-green-400 mb-4">Meal Plan</h2>
@@ -61,14 +64,21 @@ const MealPlan = ({ results, numMeals = 3 }) => {
 
               {/* Display nutrients if expanded */}
               {expandedMeals[meal.id] && mealNutrients[meal.id] && (
-                <div className="mt-3 p-3 bg-gray-600 rounded-lg">
+                <div className="flex flex-col items-center mt-3 p-3 bg-gray-600 rounded-lg">
+                  <img src={meal.image}></img>
                   <h4 className="text-green-300 font-semibold">
                     Nutritional Info
                   </h4>
                   <p>Calories: {mealNutrients[meal.id].calories} kcal</p>
-                  <p>Protein: {mealNutrients[meal.id].protein}</p>
-                  <p>Fat: {mealNutrients[meal.id].fat}</p>
-                  <p>Carbs: {mealNutrients[meal.id].carbs}</p>
+
+                  <MacroChart
+                    results={{
+                      protein: parseGrams(mealNutrients[meal.id].protein),
+                      fat: parseGrams(mealNutrients[meal.id].fat),
+                      carbs: parseGrams(mealNutrients[meal.id].carbs),
+                    }}
+                    size="small"
+                  ></MacroChart>
                 </div>
               )}
             </div>

@@ -47,7 +47,6 @@ export const fetchMealData = async (results, numMeals) => {
         totalCarbs += randomMeal.carbs;
       }
     }
-
     return {
       meals,
       nutrients: {
