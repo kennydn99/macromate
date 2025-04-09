@@ -53,7 +53,11 @@ const MealPlan = ({ results, numMeals = 3 }) => {
 
       {!loading && mealData.meals?.length > 0 ? (
         <div>
-          <p>Total Calories: {mealData.nutrients.calories}</p>
+          <p>Total Calories: {mealData.nutrients.calories} kcal</p>
+          <p>Total Carbs: {mealData.nutrients.carbs}g</p>
+          <p>Total Protein: {mealData.nutrients.protein}g</p>
+          <p>Total Fats: {mealData.nutrients.fat}g</p>
+
           {mealData.meals.map((meal) => (
             <div
               key={meal.id}

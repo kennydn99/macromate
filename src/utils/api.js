@@ -13,7 +13,7 @@ export const fetchMealData = async (results, numMeals) => {
 
   try {
     for (let i = 0; i < numMeals; i++) {
-      const response = await axios.get(`${BASE_URL}/recipes/findByNutrients`, {
+      const response = await axios.get(`http://localhost:3000/api/meals`, {
         params: {
           apiKey: API_KEY,
           minCalories: (results.tdee / numMeals) * 0.8,
@@ -42,9 +42,9 @@ export const fetchMealData = async (results, numMeals) => {
 
         // Aggregate nutrient values
         totalCalories += randomMeal.calories;
-        totalProtein += randomMeal.protein;
-        totalFat += randomMeal.fat;
-        totalCarbs += randomMeal.carbs;
+        totalProtein += parseFloat(randomMeal.protein);
+        totalFat += parseFloat(randomMeal.fat);
+        totalCarbs += parseFloat(randomMeal.carbs);
       }
     }
     return {

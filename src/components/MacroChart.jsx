@@ -2,7 +2,6 @@ import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 
 function MacroChart({ results, size = "large" }) {
   const COLORS = ["#8884d8", "#82ca9d", "#ffc658"];
-  console.log("MacroChart results:", results);
 
   const data = [
     { name: "Protein", value: results.protein },
@@ -12,7 +11,7 @@ function MacroChart({ results, size = "large" }) {
 
   const chartSize =
     size === "small"
-      ? { width: 300, height: 200, outerRadius: 60 }
+      ? { width: 300, height: 250, outerRadius: 60 }
       : { width: 500, height: 300, outerRadius: 100 };
 
   return (
